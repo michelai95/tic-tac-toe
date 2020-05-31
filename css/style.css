@@ -1,3 +1,27 @@
 h1 {
-  color: purple;
+  color: #be87be;
+}
+body {
+  margin: 0;
+}
+.one{
+  display: inline-block;
+}
+.two {
+  display: inline-block;
+}
+.three {
+  display: inline-block;
+}
+.inner {
+  border-style: solid;
+  padding: 50px;
+}
+#reset {
+  display: block;
+}
+.players {
+  display: inline;
+  padding: 50px;
+  color: #6b5465; 
 }
