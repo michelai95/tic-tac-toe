@@ -73,11 +73,19 @@ document.addEventListener('DOMContentLoaded', function(){
     function boxClick(e) {
         console.log("You chose " + e.target.id)
         let box = e.target.id;
+        let combo = true;
+        for (const i = 0; i < winningCombo; i++) {
+            if (9 > winningCombo[i]) continue;
+            combo = false;
+            break;
+        }
+        if (combo) alert("Cat's tongue"); 
+        }
 
-        /* If the game is not over and the opponent hasn't won
-        if (player1.winningCombo === player2.winningCombo) {
-            document.textContent = "It's a Tie!";
-        };
+        // If the game is not over and the opponent hasn't won
+        if (if (turn % 2 === 0) { //player 1, change element to x
+} else {
+  // player 2, change element to o
 
         if (player1.boxClick === ) */
 
