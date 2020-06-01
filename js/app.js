@@ -10,14 +10,13 @@ document.addEventListener('DOMContentLoaded', function(){
     let downMid = document.getElementById('07');
     let downRight = document.getElementById('08');
     let resetBtn = document.getElementById('reset'); 
-   
-
- 
-/*----Game Logic Variables ----*/
+    let turn = 0; 
     let t3 = document.getElementById('tictactoe');
+    let player1 = "Rick";
+    let player2 = "Morty";
 
     // let gameOver = true; 
-
+/*--- Game Logic --- */ 
     let winningCombo = [
         ["00", "01" , "02"],
         ["03", "04", "05"],
@@ -29,20 +28,43 @@ document.addEventListener('DOMContentLoaded', function(){
         ["02" , "05" , "08"]
     ]; 
 
-    let player1 = "X"
-    let player2 = "O"
+   /* let player1 = "X";
+    let player2 = "O"; */
+
+    /*let playerOne = { 
+        points: 0,
+        currentChoice: null
+    };
+    
+    let playerTwo = { 
+        points: 0,
+        currentChoice: null
+    };
+    
+    let turn = 0;*/
   
 /*--- player selection ----*/ 
 // the function will see if there is a remainder of 0 between two players, if so it'll prompt the other player if not, it'll stop 
 
-    function getTurn () {
-        if (turn % 2 !== 0) {
+    function getTurn() {
+        if (turn % 2) {
+            turn++;
             return true;
         } else { 
+            turn++;
             return false;
         }
     }
-    (getTurn); 
+    function chicken(count){
+        if (count % 2) {
+            return true;
+        } else {
+                return false;
+            }
+    }
+
+    /*--- Even player = X ---*/ 
+
 
     /*function updateScore () {
         player1.textContent = player1.points;
@@ -55,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     resetBtn.addEventListener('click', reset);
     t3.addEventListener('click', boxClick); 
+    
   /*-  upLeft.addEventListener('click', boxClick);
     upMid.addEventListener('click', boxClick);
     upRight.addEventListener('click', boxClick); 
@@ -64,28 +87,13 @@ document.addEventListener('DOMContentLoaded', function(){
     downLeft.addEventListener('click', boxClick);
     downMid.addEventListener('click', boxClick);
     downRight.addEventListener('click', boxClick); */
-
-
-    // Box Chosen - learned through TA with Dope Lemon 
-    function boxClick(e) {
-        console.log("You chose " + e.target.id)
-        let box = e.target.id;
-        let combo = true;
-        for (const i = 0; i < winningCombo; i++) {
-            if (9 > winningCombo[i]) continue;
-            combo = false;
-            break;
-        } 
-        if (combo) return("Cat's tongue"); 
-        }
-
         
 
        /* if (if (turn % 2 === 0) { //player 1, change element to x
 } else {
 // player 2, change element to */ 
 
-/* Phillip wanted me to use a for loop but when googling it, articles said it's best not to since it renders the previous index   */  
+/* Phillip wanted me to use a for loop  for my event listener  */  
 let cells = document.getElementsByClassName('.inner');
 console.log(cells);
 
@@ -95,58 +103,57 @@ for (let i= 0; i < cells.length; i++) {
     })
 }
 
-function play (e) {
-    console.log("The turn is " + e.target.id);
-    let playerTurns = turn (); 
-    if (e.target.id === '00') {
+function play(e) {
+    let playerTurns = getTurn(); 
+    if (e === '00') {
         if (playerTurns) {
             upLeft.textContent = 'X';
         } else {
             upLeft.textContent = 'O'; 
         }
-      } if (e.target.id === '01') {
+      } if (e === '01') {
           if (playerTurns) {
               upMid.textContent = 'X';
           } else {
               upMid.textContent = 'O';
           }
-      } if (e.target.id === '02') {
+      } if (e === '02') {
           if (playerTurns) {
             upRight.textContent = 'X';
         } else {
             upRight.textContent = 'O';
         }
-    } if (e.target.id === '03') {
+    } if (e === '03') {
         if (playerTurns) {
             midLeft.textContent = 'X';
         } else {
             midLeft.textContent = 'O';
         }
-    } if (e.target.id === '04') {
+    } if (e === '04') {
         if (playerTurns) {
             midMid.textContent = 'X';
         } else {
             midMid.textContent = 'O';
         }
-    } if (e.target.id === '05') {
+    } if (e === '05') {
         if (playerTurns) {
             midRight.textContent = 'X';
         } else {
             midRight.textContent = 'O';
         }
-    } if (e.target.id === '06') {
+    } if (e === '06') {
         if (playerTurns) {
             downLeft.textContent = 'X';
         } else {
             downLeft.textContent = 'O';
         }
-    } if (e.target.id === '07') {
+    } if (e === '07') {
         if (playerTurns) {
             downMid.textContent = 'X';
         } else {
             downMid.textContent = 'O';
         }
-    } if (e.target.id === '08') {
+    } if (e === '08') {
         if (playerTurns) {
             downRight.textContent = 'X';
         } else {
@@ -157,32 +164,42 @@ function play (e) {
     console.log(play); 
 })    
 
+ // Box Chosen and what to render if it's at a "tie" - learned through TA with Dope Lemon 
 
-// Checking for a win - learned through TA hours with Phillip
+function boxClick(e) {
+    console.log("You chose " + e.target.id),
+    let box = e.target.id;
+    let combo = true;
+    play(box); 
+    for (let i = 0; i < winningCombo.length; i++) {
+        if (turn == 8) {
+        combo = false;
+    if (combo) return("Cat's tongue"); 
+    }
 
-        function winCheck() {
-            for (let i = 0; i < winningCombos.length; i++) {
-                let playerCountX = 0;
-                let playerCountO = 0;
-                for (let j = 0; j < winningCombos[i].length; j++) {
-                    console.log(playerXChooses);
-                    console.log(winningCombos[i][j]);
-                    if (playerXChooses.includes(winningCombos[i][j])) {
-                        console.log("player one check");
-                        playerCountX++;
-                        console.log("score = " + playerCountX);
-                    } if (playerOChooses.includes(wininngCombos[i][j])) {
-                        console.log("player two check");
-                        playerCountO++;
-                        console.log(playerCountO);
-                    } if (playerXChooses.includes(winningCombos[i][j] && playerCountX === 3)) {
-                        console.log("player one wins!");
-                    } if (playerOChooses.includes(winningCombos[i][j]) && playerCountO === 3) {
-                        console.log("player two wins!");
+function checkWin(playaplaya) {
+    for (i = 0; i < winningCombo.length; i++) {
+        let counter = 0;
+        for (j = 0; j < winningCombo[i].length; j++) {
+           if (playaplaya.includes(win[i][j])) {
+            counter++;
+            if (counter === 3) {
+                let winner = chicken(count);
+                    if (winner) {
+                        gamePrompt.textContent = "Rick Wins!";
+                    } else {
+                        gamePrompt.textContent = "Morty Wins!";
                     }
                 }
             }
-        }  
-
-        (winCheck);
-
+        }
+    }
+}
+            // console.log(“counter: ” + counter);
+            // console.log(“win: ” + win[i][j]); to check the array within the array 
+       /* function chickenWinner(count) {	
+            if (count % 2 == 0);		return true;
+            else {
+            return false;} */ 
+            }
+        }
