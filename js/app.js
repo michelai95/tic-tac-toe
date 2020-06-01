@@ -10,17 +10,9 @@ document.addEventListener('DOMContentLoaded', function(){
     let downMid = document.getElementById('07');
     let downRight = document.getElementById('08');
     let resetBtn = document.getElementById('reset'); 
+   
 
- /* Phillip wanted me to use a for loop but when googling it, articles said it's best not to since it renders the previous index   */  
-    let cells = document.getElementsByClassName('.inner');
-    console.log(cells);
-
-    for (leti= 0; i < cells.length; i++) {
-        cells.addEventListener ('click', function(){
-            console.log(i)
-        })
-    }
-
+ 
 /*----Game Logic Variables ----*/
     let t3 = document.getElementById('tictactoe');
 
@@ -50,19 +42,20 @@ document.addEventListener('DOMContentLoaded', function(){
             return false;
         }
     }
+    (getTurn); 
 
-    function updateScore () {
+    /*function updateScore () {
         player1.textContent = player1.points;
         player2.textContent = player2.points; 
     };
 
-    console.log (updateScore); 
+    console.log (updateScore); */
 
-/*--- Event Listeners ----*/ /* DRY
+/*--- Event Listeners ----*/ 
 
     resetBtn.addEventListener('click', reset);
     t3.addEventListener('click', boxClick); 
-    upLeft.addEventListener('click', boxClick);
+  /*-  upLeft.addEventListener('click', boxClick);
     upMid.addEventListener('click', boxClick);
     upRight.addEventListener('click', boxClick); 
     midLeft.addEventListener('click', boxClick);
@@ -70,16 +63,41 @@ document.addEventListener('DOMContentLoaded', function(){
     midRight.addEventListener('click', boxClick);
     downLeft.addEventListener('click', boxClick);
     downMid.addEventListener('click', boxClick);
-    downRight.addEventListener('click', boxClick); 
+    downRight.addEventListener('click', boxClick); */
 
-    */
-    
 
-/* --- Adding X's and O's --- */
+    // Box Chosen - learned through TA with Dope Lemon 
+    function boxClick(e) {
+        console.log("You chose " + e.target.id)
+        let box = e.target.id;
+        let combo = true;
+        for (const i = 0; i < winningCombo; i++) {
+            if (9 > winningCombo[i]) continue;
+            combo = false;
+            break;
+        } 
+        if (combo) return("Cat's tongue"); 
+        }
+
+        
+
+       /* if (if (turn % 2 === 0) { //player 1, change element to x
+} else {
+// player 2, change element to */ 
+
+/* Phillip wanted me to use a for loop but when googling it, articles said it's best not to since it renders the previous index   */  
+let cells = document.getElementsByClassName('.inner');
+console.log(cells);
+
+for (let i= 0; i < cells.length; i++) {
+    cells.addEventListener ('click', function(){
+        console.log(i)
+    })
+}
 
 function play (e) {
     console.log("The turn is " + e.target.id);
-    let playerTurns = turn ();
+    let playerTurns = turn (); 
     if (e.target.id === '00') {
         if (playerTurns) {
             upLeft.textContent = 'X';
@@ -106,15 +124,15 @@ function play (e) {
         }
     } if (e.target.id === '04') {
         if (playerTurns) {
-            upMid.textContent = 'X';
+            midMid.textContent = 'X';
         } else {
-            upMid.textContent = 'O';
+            midMid.textContent = 'O';
         }
     } if (e.target.id === '05') {
         if (playerTurns) {
-            upRight.textContent = 'X';
+            midRight.textContent = 'X';
         } else {
-            upRight.textContent = 'O';
+            midRight.textContent = 'O';
         }
     } if (e.target.id === '06') {
         if (playerTurns) {
@@ -135,28 +153,10 @@ function play (e) {
             downRight.textContent = 'O';
         }
     }
-    }
-}
+    } 
+    console.log(play); 
+})    
 
-
-    // Box Chosen - learned through TA with Dope Lemon 
-    function boxClick(e) {
-        console.log("You chose " + e.target.id)
-        let box = e.target.id;
-        let combo = true;
-        for (const i = 0; i < winningCombo; i++) {
-            if (9 > winningCombo[i]) continue;
-            combo = false;
-            break;
-        } 
-        if (combo) return("Cat's tongue"); 
-        }
-
-        
-
-       /* if (if (turn % 2 === 0) { //player 1, change element to x
-} else {
-// player 2, change element to */ 
 
 // Checking for a win - learned through TA hours with Phillip
 
@@ -182,7 +182,7 @@ function play (e) {
                     }
                 }
             }
-        }
-    }
+        }  
 
-,)
+        (winCheck);
+
