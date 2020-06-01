@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function(){
     let player2 = "Morty";
 
     // let gameOver = true; 
-/*--- Game Logic --- */ 
+/*--- Game Logic --- 
     let winningCombo = [
         ["00", "01" , "02"],
         ["03", "04", "05"],
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function(){
         ["01" , "04" , "07"],
         ["02" , "05" , "08"]
     ]; 
-
+*/
    /* let player1 = "X";
     let player2 = "O"; */
 
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function(){
 /*--- player selection ----*/ 
 // the function will see if there is a remainder of 0 between two players, if so it'll prompt the other player if not, it'll stop 
 
-    function getTurn() {
+   /* function getTurn() {
         if (turn % 2) {
             turn++;
             return true;
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function(){
         } else {
                 return false;
             }
-    }
+    } */
 
     /*--- Even player = X ---*/ 
 
@@ -164,17 +164,46 @@ function play(e) {
     console.log(play); 
 })    
 
+/*--- Game Logic --- */ 
+let winningCombo = [
+    ["00", "01" , "02"],
+    ["03", "04", "05"],
+    ["06" , "07" , "08"],
+    ["00" , "04" , "08"],
+    ["06" , "04" , "02"],
+    ["00" , "03" , "06"],
+    ["01" , "04" , "07"],
+    ["02" , "05" , "08"]
+]; 
+
+
+function getTurn() {
+    if (turn % 2) {
+        turn++;
+        return true;
+    } else { 
+        turn++;
+        return false;
+    }
+}
+function chicken(count){
+    if (count % 2) {
+        return true;
+    } else {
+            return false;
+        }
+}
  // Box Chosen and what to render if it's at a "tie" - learned through TA with Dope Lemon 
 
 function boxClick(e) {
     console.log("You chose " + e.target.id),
-    let box = e.target.id;
+    let box= e.target.id;
     let combo = true;
     play(box); 
     for (let i = 0; i < winningCombo.length; i++) {
         if (turn == 8) {
         combo = false;
-    if (combo) return("Cat's tongue"); 
+    if (combo) returngamePrompt.textContent = "Cat's tongue"; 
     }
 
 function checkWin(playaplaya) {
@@ -194,7 +223,9 @@ function checkWin(playaplaya) {
             }
         }
     }
-}
+} 
+
+checkWin(); 
             // console.log(“counter: ” + counter);
             // console.log(“win: ” + win[i][j]); to check the array within the array 
        /* function chickenWinner(count) {	
