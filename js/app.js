@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let turn = 0; 
     let t3 = document.getElementById('tictactoe');
     let game = document.getElementById('game');
+    let playerOneScore = document.getElementById('playerOneScore');
+    let playerTwoScore = document.getElementById('playerTwoScore');
     console.log(game);
 
  /*---Event Listeners----*/ 
@@ -148,9 +150,9 @@ function play(e) {
                 combo = false;
             }
         }
-        if (combo) {
+      /*  if (combo) {
             document.getElementById('game').innerHTML = "Cat's tongue";
-        }
+        }*/
     }
 
     const choices = ['00','01', '02', '03', '04', '05', '06', '07', '08']; 
@@ -169,19 +171,24 @@ function play(e) {
                     console.log("Rick+1")
                     rickScore++;
                     // equal to ricks score plus one 
+                  //  playerOneScore.contentText =  ("Rick's Score " + rickScore); 
                     console.log("Rick's score ", rickScore)
-                }
+                } 
                 else if (Morty.allChoices.includes(winningCombo[i][j])) {
                     console.log("Morty+1")
                     mortyScore++;
+                  //  playerTwoScore.contentText =  ("Morty's Score " + mortyScore);
                     console.log("Morty's score " + mortyScore)
                 }
             }
+            // comparing rick and morty's score and if it is equal to a winning combo
             if (rickScore === 3) {
+                //playerOneScore.contentText = ("Rick has won!"); 
                 console.log("Rick has won!");
                 break;
             } 
             else if (mortyScore === 3) {
+               // playerTwoScore.contentText = ("Morty has won!"); 
                 console.log("Morty has won!");
                 break;
             }
