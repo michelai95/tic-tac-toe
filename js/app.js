@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let resetBtn = document.getElementById('reset'); 
     let turn = 0; 
     let t3 = document.getElementById('tictactoe');
-    let Rick = document.getElementById('playerOneScore');
-    let Morty = document.getElementById('playerTwoScore');
+    let game = document.getElementById('game');
+    console.log(game);
 
  /*---Event Listeners----*/ 
     resetBtn.addEventListener('click', reset);
@@ -30,12 +30,26 @@ document.addEventListener('DOMContentLoaded', function() {
         ["01" , "04" , "07"],
         ["02" , "05" , "08"]
     ]; 
+
+    let Rick = {
+        points: 0,
+        currentChoice: null,
+        allChoices: []
+        };
+
+    let Morty = {
+        points: 0,
+        currentChoice: null,
+        allChoices: []
+        };
+
     function getTurn() {
+
         if (turn % 2) {
-            turn++;
+            
             return true;
         } else { 
-            turn++;
+            
             return false;
         }
     }
@@ -55,31 +69,22 @@ for (let i= 0; i < cells.length; i++) {
     })
 }
 
-function getTurn() {
-    if (turn % 2) {
-        turn++;
-        return true;
-    } else { 
-        turn++;
-        return false;
-    }
-}
-function chicken(count){
-    if (count % 2) {
-        return true;
-    } else {
-            return false;
-        }
-}
-
 function play(e) {
     let playerTurns = getTurn(); 
+    if (playerTurns) {
+        Morty.allChoices.push(e);
+    }
+    else {Rick.allChoices.push(e);}
+    // first time will return true and then push into his choices
+    // if it's not morty's then it's rick's choice 
+    // have to separate two different functions "getters" and "setters"
+    turn++;
     if (e === '00') {
         if (playerTurns) {
             upLeft.textContent = '💃🏽';
         } else {
             upLeft.textContent = '🕺🏾'; 
-        }
+        } console.log('hi');
       } if (e === '01') {
           if (playerTurns) {
               upMid.textContent = '💃🏽';
@@ -129,40 +134,86 @@ function play(e) {
             downRight.textContent = '🕺🏾';
         }
     }
+    checkWin();
     } 
-    console.log(play);
     
+
     function boxClick(e) {
         console.log("You chose " + e.target.id);
         let box = e.target.id;
         let combo = true;
-        play(box); 
+        play(box);
         for (let i = 0; i < winningCombo.length; i++) {
             if (turn == 8) {
-            combo = false;
-        if (combo) returngamePrompt.textContent = "Cat's tongue"; 
+                combo = false;
+            }
         }
-    
-    function checkWin(playaplaya) {
-        for (i = 0; i < winningCombo.length; i++) {
-            let counter = 0;
-            let opponent = 0;
+        if (combo) {
+            document.getElementById('game').innerHTML = "Cat's tongue";
+        }
+    }
+
+    const choices = ['00','01', '02', '03', '04', '05', '06', '07', '08']; 
+// Yoshi helped me with fixing my bugs and getting my win function to operate 
+    function checkWin() {
+        console.log("checkWin");
+        console.log(Rick.allChoices);
+        console.log(Morty.allChoices);
+        // look in Rick's plays for winning combo
+        // look in Morty's play for winning combos
+        for (let i = 0; i < winningCombo.length; i++) {
+            let rickScore = 0;
+            let mortyScore = 0;
+            for (let j = 0; j < winningCombo[i].length; j++) {
+                if (Rick.allChoices.includes(winningCombo[i][j])) {
+                    console.log("Rick+1")
+                    rickScore++;
+                    // equal to ricks score plus one 
+                    console.log("Rick's score ", rickScore)
+                }
+                else if (Morty.allChoices.includes(winningCombo[i][j])) {
+                    console.log("Morty+1")
+                    mortyScore++;
+                    console.log("Morty's score " + mortyScore)
+                }
+            }
+            if (rickScore === 3) {
+                console.log("Rick has won!");
+                break;
+            } 
+            else if (mortyScore === 3) {
+                console.log("Morty has won!");
+                break;
+            }
+            else {
+                console.log("Nobody has won yet");
+            }
+        }
+        // depending on if we find a winning combo or not message the user/update user
+        /*for (i = 0; i < winningCombo.length; i++) {
+            let RickScore = 0;
+            let MortyScore = 0;
             for (j = 0; j < winningCombo[i].length; j++) {
-               if (winningCombo.includes(winningCombo[i][j])) {
-                console.log("Rick");
-                counter++;
-                console.log("Rick's score " + counter++);
-                if (counter === 3) {
-                    let winner = chicken(count);
-                        if (winner) {
-                            gamePrompt.textContent = "Rick Wins!";
-                        } else {
+                if (Morty.choices.includes(winningCombo[i][j])) {
+                    MortyScore++;
+                    console.log(counter);
+                    if (Morty === 3) {
+                        let winner = chicken(count);
+                        if (MortyScore === 3) {
+                            display.textContent = "Rick Wins!";
+                        } if (Rick.choices.includes(winningCombo[i][j])) {
+                            RickScore++;
+                            if (Rick === 3) {
+                                let winner = chicken(count);
+                            }
+                        }
+                        else {
                             gamePrompt.textContent = "Morty Wins!";
                         }
                     }
                 }
             }
-        }
+        }*/
     } 
     console.log();
 
@@ -176,10 +227,5 @@ function play(e) {
 
     } */
 
-    checkWin();
-}    
-
-}
-
-})
-
+    
+}) 
