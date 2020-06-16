@@ -13,9 +13,10 @@ document.addEventListener('DOMContentLoaded', function() {
     let turn = 0; 
     let t3 = document.getElementById('tictactoe');
     let game = document.getElementById('game');
-    let playerOneScore = document.getElementById('playerOneScore');
-    let playerTwoScore = document.getElementById('playerTwoScore');
+    let playerOneScore = document.getElementById('playeronescore');
+    let playerTwoScore = document.getElementById('playertwoscore');
     console.log(game);
+    let aside = document.getElementById('turn');
 
  /*---Event Listeners----*/ 
     resetBtn.addEventListener('click', reset);
@@ -67,7 +68,6 @@ console.log(cells);
 
 for (let i= 0; i < cells.length; i++) {
     cells.addEventListener ('click', function(){
-        console.log(i)
     })
 }
 
@@ -75,8 +75,13 @@ function play(e) {
     let playerTurns = getTurn(); 
     if (playerTurns) {
         Morty.allChoices.push(e);
+        aside.textContent = "Player One's Turn!"
+        // let aside = document.createElement = (aside, ["Player One's Turn!"])
     }
-    else {Rick.allChoices.push(e);}
+    else {Rick.allChoices.push(e);
+        aside.textContent = "Player Two's Turn!"
+        // let aside = document.createElement = (aside, ["Player Two's Turn!"])
+    }
     // first time will return true and then push into his choices
     // if it's not morty's then it's rick's choice 
     // have to separate two different functions "getters" and "setters"
@@ -136,7 +141,6 @@ function play(e) {
             downRight.textContent = '🕺🏾';
         }
     }
-    checkWin();
     } 
     
 
@@ -145,56 +149,58 @@ function play(e) {
         let box = e.target.id;
         let combo = true;
         play(box);
-        for (let i = 0; i < winningCombo.length; i++) {
-            if (turn == 8) {
-                combo = false;
-            }
-        }
-      /*  if (combo) {
-            document.getElementById('game').innerHTML = "Cat's tongue";
-        }*/
+        checkWin();
     }
 
     const choices = ['00','01', '02', '03', '04', '05', '06', '07', '08']; 
 // Yoshi helped me with fixing my bugs and getting my win function to operate 
     function checkWin() {
+        // declare variables for the function here 
         console.log("checkWin");
         console.log(Rick.allChoices);
         console.log(Morty.allChoices);
+        let winner = false;
         // look in Rick's plays for winning combo
         // look in Morty's play for winning combos
+        //i++ counts by one, you could even do i+2 to skip, etc.
         for (let i = 0; i < winningCombo.length; i++) {
             let rickScore = 0;
             let mortyScore = 0;
             for (let j = 0; j < winningCombo[i].length; j++) {
                 if (Rick.allChoices.includes(winningCombo[i][j])) {
-                    console.log("Rick+1")
+                    console.log("winning combo", winningCombo[i][j])
                     rickScore++;
-                    // equal to ricks score plus one 
+                    // looking for one of the winning scores of the winning combo 
                   //  playerOneScore.contentText =  ("Rick's Score " + rickScore); 
                     console.log("Rick's score ", rickScore)
                 } 
-                else if (Morty.allChoices.includes(winningCombo[i][j])) {
-                    console.log("Morty+1")
+                if (Morty.allChoices.includes(winningCombo[i][j])) {
                     mortyScore++;
                   //  playerTwoScore.contentText =  ("Morty's Score " + mortyScore);
                     console.log("Morty's score " + mortyScore)
                 }
-            }
-            // comparing rick and morty's score and if it is equal to a winning combo
-            if (rickScore === 3) {
-                //playerOneScore.contentText = ("Rick has won!"); 
-                console.log("Rick has won!");
-                break;
-            } 
-            else if (mortyScore === 3) {
-               // playerTwoScore.contentText = ("Morty has won!"); 
-                console.log("Morty has won!");
-                break;
-            }
-            else {
-                console.log("Nobody has won yet");
-            }
+                // comparing rick and morty's score and if it is equal to a winning combo
+                if (rickScore === 3) {
+                    //playerOneScore.contentText = ("Rick has won!"); 
+                    console.log("Rick has won!");
+                    winner = true;
+                    dog("Rick");
+                    return
+                } 
+                else if (mortyScore === 3) {
+                   // playerTwoScore.contentText = ("Morty has won!"); 
+                    console.log("Morty has won!");
+                    winner = true;
+                    dog("Morty");
+                    return
+                }
+                }
+                if (!winner && turn == 9) {
+                    console.log('draw')
+                    dog(winner)
+                    return
+                }
+            }   
         }
         // depending on if we find a winning combo or not message the user/update user
         /*for (i = 0; i < winningCombo.length; i++) {
@@ -221,18 +227,23 @@ function play(e) {
                 }
             }
         }*/
-    } 
     console.log();
 
-   /* function reset() {
-        counter !== 3
-        gamePrompt.textContent = "Game Over";
-        if (counter => 3) {
-            endGame(false)
-        }  
-
-
-    } */
-
+    function dog(winner) {
+        if (winner === "Morty") {
+            // can use any form of math for point scale
+            Morty.points = Morty.points+1;
+            playerOneScore.innerText = Morty.points;
+        }
+        if (winner === "Rick") {
+            Rick.points = Rick.points+1;
+            playerTwoScore.innerText = Rick.points; 
+        }
+        if (!winner) {
+            console.log('draw')
+            game.textContent = "It's a draw!"
+        }
+        t3.removeEventListener("click", boxClick);
+    }
     
 }) 

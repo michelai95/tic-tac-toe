@@ -1,8 +1,14 @@
 h1 {
-  color: #be87be;
+  color: hsl(0, 64%, 22%);
+  text-align: center;
 }
 body {
   margin: 0;
+}
+#game {
+  text-align: center;
+  color: #cc2929;
+  font-size: 20px;
 }
 .one{
   display: inline-block;
@@ -15,13 +21,23 @@ body {
 }
 .inner {
   border-style: solid;
-  padding: 50px;
+  padding: 55px;
 }
 #reset {
   display: block;
+  margin-left: 125px;
+  margin-top: 25px;
 }
 .players {
   display: inline;
   padding: 50px;
-  color: #6b5465; 
+  color: rgb(182, 56, 56); 
+}
+#tictactoe {
+  margin-left: 215px;
+  padding: 50px;
+}
+aside {
+  color: black;
+  font-size: 25px;
 }
