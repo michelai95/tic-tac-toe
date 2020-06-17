@@ -34,10 +34,10 @@ body {
   color: rgb(182, 56, 56); 
 }
 #tictactoe {
-  margin-left: 215px;
+  margin-left: 750px;
   padding: 50px;
 }
 aside {
-  color: black;
+  color: rgb(182, 56, 56);
   font-size: 25px;
 }

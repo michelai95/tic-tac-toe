@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let playerTwoScore = document.getElementById('playertwoscore');
     console.log(game);
     let aside = document.getElementById('turn');
+    let final = document.getElementById('winner');
 
  /*---Event Listeners----*/ 
     resetBtn.addEventListener('click', reset);
@@ -182,14 +183,16 @@ function play(e) {
                 // comparing rick and morty's score and if it is equal to a winning combo
                 if (rickScore === 3) {
                     //playerOneScore.contentText = ("Rick has won!"); 
-                    console.log("Rick has won!");
+                    // console.log("Rick has won!");
+                    final.textContent = "Player One Wins!"
                     winner = true;
                     dog("Rick");
                     return
                 } 
                 else if (mortyScore === 3) {
                    // playerTwoScore.contentText = ("Morty has won!"); 
-                    console.log("Morty has won!");
+                    // console.log("Morty has won!");
+                    final.textContent = "Player Two Wins!"
                     winner = true;
                     dog("Morty");
                     return
